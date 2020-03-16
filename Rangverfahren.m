@@ -1,4 +1,4 @@
-function [InputPicture,SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold)
+function [InputPicture,SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel)
 %clear;
 %close all;
 
@@ -57,7 +57,7 @@ Sobel = fspecial('sobel');
 SX = imfilter(InputPicture,Sobel);
 SY = imfilter(InputPicture',Sobel)';
 I = sqrt(SX.*SX + SY.*SY);
-SobelMatrix = I;
+SobelMatrix = (I > threshold_sobel);
 %imwrite(SobelMatrix, 'PictureResultSobel.png');
 %fthree = figure(3);
 %imshow(I); truesize; colormap gray; title('Sobel');
@@ -86,7 +86,7 @@ for q1=1:(r-stepwith)
         GradientenMatrix(q1:(q1+stepwith), p1:(p1+stepwith)) = I;
     end
 end
-GradientenMatrix = (GradientenMatrix > threshold);
+GradientenMatrix = (GradientenMatrix >= threshold_rang);
 %two = figure(2);
 %subplot(1, 2, 2);
 %imshow(GradientenMatrix, 'InitialMagnification', 'fit'); truesize; colormap gray; title('Bild nach Rangverfahren');
