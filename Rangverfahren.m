@@ -1,25 +1,15 @@
 function [InputPicture,SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel)
-%clear;
-%close all;
-
-%index = input("Wähle eine Umgebung aus:\n [1] 3x3\n [2] 5x5\n [3] 7x7\n\n");
-
-%while not(index>=1 && index<=3)
-%    disp("Auswahl falsch. Eingaben von 1 bis 3 zulässig.");
-%    index = input("Wähle eine Umgebung aus:\n [1] 3x3\n [2] 5x5\n [3] 7x7\n\n");
-%end
 
 if index == '1'
     stepwith = 2;
-    %threshold = 5;
+    padding = [1 1]; % inserting 1 line of zeros around matrix
 elseif index == '2'
     stepwith = 4;
-    %threshold = 14;
+    padding = [2 2]; % inserting 2 lines of zeros around matrix
 else
     stepwith = 6;
-    %threshold = 25;
+    padding = [3 3]; % inserting 3 lines of zeros around matrix
 end
-
 
 %InputPicture = imread('Testbild_Kreis_100x100.png');
 %InputPicture = imread('Testbild_Fuchs.png');
@@ -46,30 +36,22 @@ InputPicture = imread(input_file);
 if dim3 == 3
     InputPicture = rgb2gray(InputPicture);
 end
-%fone = figure(1);
-%subplot(1, 2, 1);
-%imshow(InputPicture, 'InitialMagnification', 'fit'); truesize; colormap gray; title('Original');
+InputPicture = padarray(InputPicture, padding, 0); % insert padding of zeros around the matrix
 InputPicture = double(InputPicture);
-%I = [ 1 8 4 10; 16 16 16 44; 3 2 2 13; 22 23 99 55;];
-%I = [1 8 4; 15 16 12; 5 2 9;];
 
 Sobel = fspecial('sobel');
 SX = imfilter(InputPicture,Sobel);
 SY = imfilter(InputPicture',Sobel)';
 I = sqrt(SX.*SX + SY.*SY);
 SobelMatrix = (I > threshold_sobel);
-%imwrite(SobelMatrix, 'PictureResultSobel.png');
-%fthree = figure(3);
-%imshow(I); truesize; colormap gray; title('Sobel');
 I2 = I;
 GradientenMatrix = I;
-%I
 
 [r, c] = size(I);
 
 for q1=1:(r-stepwith)
     for p1=1:(c-stepwith)
-        I = I2(q1:(q1+stepwith), p1:(p1+stepwith)); % 3x3 Umgebung %
+        I = I2(q1:(q1+stepwith), p1:(p1+stepwith)); % nxn Umgebung %
         %I
         LinVektor = reshape(I,1,[]);
         SortedVektor = sort(LinVektor);
@@ -87,8 +69,4 @@ for q1=1:(r-stepwith)
     end
 end
 GradientenMatrix = (GradientenMatrix >= threshold_rang);
-%two = figure(2);
-%subplot(1, 2, 2);
-%imshow(GradientenMatrix, 'InitialMagnification', 'fit'); truesize; colormap gray; title('Bild nach Rangverfahren');
-%imwrite(GradientenMatrix, 'PictureResultRang.png');
 end
