@@ -19,6 +19,7 @@ classdef guiApp_exported < matlab.apps.AppBase
         ErgebnisnachRangverfahrenLabel  matlab.ui.control.Label
         SchwellwertSobelEditFieldLabel  matlab.ui.control.Label
         SchwellwertSobelEditField       matlab.ui.control.NumericEditField
+        AutoSchwellwertCheckBox         matlab.ui.control.CheckBox
     end
 
     
@@ -37,7 +38,8 @@ classdef guiApp_exported < matlab.apps.AppBase
             index = app.PixelumgebungDropDown.Value;
             threshold_rang = app.SchwellenwertRangverfahrenEditField.Value;
             threshold_sobel = app.SchwellwertSobelEditField.Value;
-            [InputPicture, SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel);
+            auto_threshold_activated = app.AutoSchwellwertCheckBox.Value;
+            [InputPicture, SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel, auto_threshold_activated);
             app.pic_filename = [tempname(pwd), '.png']; % create new random filename
             imwrite(SobelMatrix, app.pic_filename);
             app.Image2.ImageSource = app.pic_filename;
@@ -158,6 +160,11 @@ classdef guiApp_exported < matlab.apps.AppBase
             % Create SchwellwertSobelEditField
             app.SchwellwertSobelEditField = uieditfield(app.UIFigure, 'numeric');
             app.SchwellwertSobelEditField.Position = [1055 587 100 22];
+
+            % Create AutoSchwellwertCheckBox
+            app.AutoSchwellwertCheckBox = uicheckbox(app.UIFigure);
+            app.AutoSchwellwertCheckBox.Text = ' Auto-Schwellwert';
+            app.AutoSchwellwertCheckBox.Position = [787 510 118 22];
 
             % Show the figure after all components are created
             app.UIFigure.Visible = 'on';

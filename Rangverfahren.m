@@ -1,4 +1,4 @@
-function [InputPicture,SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel)
+function [InputPicture,SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel, auto_threshold_activated)
 
 if index == '1'
     stepwith = 2;
@@ -9,6 +9,11 @@ elseif index == '2'
 else
     stepwith = 6;
     padding = [3 3]; % inserting 3 lines of zeros around matrix
+end
+
+if auto_threshold_activated == 1
+    nxn_dim = stepwith + 1;
+    threshold_rang = 0.5 * (nxn_dim * nxn_dim + 1),
 end
 
 %InputPicture = imread('Testbild_Kreis_100x100.png');
