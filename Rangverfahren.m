@@ -13,7 +13,7 @@ end
 
 if auto_threshold_activated == 1
     nxn_dim = stepwith + 1;
-    threshold_rang = 0.5 * (nxn_dim * nxn_dim + 1),
+    threshold_rang = 0.5 * (nxn_dim * nxn_dim + 1);
 end
 
 %InputPicture = imread('Testbild_Kreis_100x100.png');
@@ -73,5 +73,7 @@ for q1=1:(r-stepwith)
         GradientenMatrix(q1:(q1+stepwith), p1:(p1+stepwith)) = I;
     end
 end
+n = padding(1);
+GradientenMatrix = GradientenMatrix(n+1:end-n, n+1:end-n); % remove padding of zeros
 GradientenMatrix = (GradientenMatrix >= threshold_rang);
 end
