@@ -15,7 +15,7 @@ classdef guiApp_exported < matlab.apps.AppBase
         Image2                          matlab.ui.control.Image
         Image3                          matlab.ui.control.Image
         OrginalbildLabel                matlab.ui.control.Label
-        ErgebnisnachSobelLabel          matlab.ui.control.Label
+        ErgebnisnachGradientenbetragsbildmitSchwellwertLabel  matlab.ui.control.Label
         ErgebnisnachRangverfahrenLabel  matlab.ui.control.Label
         SchwellwertSobelEditFieldLabel  matlab.ui.control.Label
         SchwellwertSobelEditField       matlab.ui.control.NumericEditField
@@ -141,10 +141,10 @@ classdef guiApp_exported < matlab.apps.AppBase
             app.OrginalbildLabel.Position = [199 466 63 22];
             app.OrginalbildLabel.Text = 'Orginalbild';
 
-            % Create ErgebnisnachSobelLabel
-            app.ErgebnisnachSobelLabel = uilabel(app.UIFigure);
-            app.ErgebnisnachSobelLabel.Position = [543 466 116 22];
-            app.ErgebnisnachSobelLabel.Text = 'Ergebnis nach Sobel';
+            % Create ErgebnisnachGradientenbetragsbildmitSchwellwertLabel
+            app.ErgebnisnachGradientenbetragsbildmitSchwellwertLabel = uilabel(app.UIFigure);
+            app.ErgebnisnachGradientenbetragsbildmitSchwellwertLabel.Position = [453 466 295 22];
+            app.ErgebnisnachGradientenbetragsbildmitSchwellwertLabel.Text = 'Ergebnis nach Gradientenbetragsbild mit Schwellwert';
 
             % Create ErgebnisnachRangverfahrenLabel
             app.ErgebnisnachRangverfahrenLabel = uilabel(app.UIFigure);

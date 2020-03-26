@@ -74,6 +74,6 @@ for q1=1:(r-stepwith)
     end
 end
 n = padding(1);
-GradientenMatrix = GradientenMatrix(n+1:end-n, n+1:end-n); % remove padding of zeros
+GradientenMatrix = GradientenMatrix(n+1:end-n, n+1:end-n); % remove padding
 GradientenMatrix = (GradientenMatrix >= threshold_rang);
 end
