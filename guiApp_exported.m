@@ -20,6 +20,9 @@ classdef guiApp_exported < matlab.apps.AppBase
         SchwellwertSobelEditFieldLabel  matlab.ui.control.Label
         SchwellwertSobelEditField       matlab.ui.control.NumericEditField
         AutoSchwellwertCheckBox         matlab.ui.control.CheckBox
+        PaddingOptionenButtonGroup      matlab.ui.container.ButtonGroup
+        PaddingButton                   matlab.ui.control.RadioButton
+        PeriodischeFortsetzungButton    matlab.ui.control.RadioButton
     end
 
     
@@ -39,7 +42,14 @@ classdef guiApp_exported < matlab.apps.AppBase
             threshold_rang = app.SchwellenwertRangverfahrenEditField.Value;
             threshold_sobel = app.SchwellwertSobelEditField.Value;
             auto_threshold_activated = app.AutoSchwellwertCheckBox.Value;
-            [InputPicture, SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel, auto_threshold_activated);
+            zero_padding_selection = app.PaddingButton.Value;
+            if zero_padding_selection == 1
+                selected_padding_type = 0;
+            else
+                selected_padding_type = 1;
+            end
+            
+            [~, SobelMatrix, GradientenMatrix] = Rangverfahren(input_file, index, threshold_rang, threshold_sobel, auto_threshold_activated, selected_padding_type);
             app.pic_filename = [tempname(pwd), '.png']; % create new random filename
             imwrite(SobelMatrix, app.pic_filename);
             app.Image2.ImageSource = app.pic_filename;
@@ -76,14 +86,14 @@ classdef guiApp_exported < matlab.apps.AppBase
             % Create InputBildDropDownLabel
             app.InputBildDropDownLabel = uilabel(app.UIFigure);
             app.InputBildDropDownLabel.HorizontalAlignment = 'right';
-            app.InputBildDropDownLabel.Position = [332 587 56 22];
+            app.InputBildDropDownLabel.Position = [176 587 56 22];
             app.InputBildDropDownLabel.Text = 'Input-Bild';
 
             % Create InputBildDropDown
             app.InputBildDropDown = uidropdown(app.UIFigure);
-            app.InputBildDropDown.Items = {'Bild auswählen', '6EckPic.png', 'Gimp2.png', 'GimpPicture.png', 'Kreis20px.png', 'KreisFarbverlauf2_800px.png', 'KreisFarbverlauf800px.png', 'Kreis_NoSmooth20px.png', 'ManyForms200px.png', 'ManyForms600px.png', 'PicTest600px.png', 'SelbstmalKreis800px.png', 'SPicture_Saved.png', 'SternPic.png', 'Testbild_9x9.png', 'Testbild_Fuchs.png', 'Testbild_Kreis_100x100.png', 'testbild_saved.png', 'Xpic600px.png', 'ZugPic.png'};
+            app.InputBildDropDown.Items = {'Bild auswählen', '6EckPic.png', 'Gimp2.png', 'GimpPicture.png', 'Kreis20px.png', 'KreisFarbverlauf2_800px.png', 'KreisFarbverlauf800px.png', 'Kreis_NoSmooth20px.png', 'ManyForms200px.png', 'ManyForms600px.png', 'PicTest600px.png', 'SelbstmalKreis800px.png', 'SPicture_Saved.png', 'SternPic.png', 'Testbild_9x9.png', 'Testbild_Fuchs.png', 'Testbild_Kreis_100x100.png', 'testbild_saved.png', 'Xpic600px.png', 'TestSimple7x7.png', 'ZugPic.png'};
             app.InputBildDropDown.ValueChangedFcn = createCallbackFcn(app, @InputBildDropDownValueChanged, true);
-            app.InputBildDropDown.Position = [403 587 138 22];
+            app.InputBildDropDown.Position = [247 587 138 22];
             app.InputBildDropDown.Value = 'Bild auswählen';
 
             % Create PixelumgebungDropDownLabel
@@ -122,7 +132,7 @@ classdef guiApp_exported < matlab.apps.AppBase
             app.StartButton.ValueChangedFcn = createCallbackFcn(app, @StartButtonValueChanged, true);
             app.StartButton.Text = 'Start';
             app.StartButton.FontWeight = 'bold';
-            app.StartButton.Position = [403 550 100 22];
+            app.StartButton.Position = [247 550 100 22];
 
             % Create Image
             app.Image = uiimage(app.UIFigure);
@@ -165,6 +175,22 @@ classdef guiApp_exported < matlab.apps.AppBase
             app.AutoSchwellwertCheckBox = uicheckbox(app.UIFigure);
             app.AutoSchwellwertCheckBox.Text = ' Auto-Schwellwert';
             app.AutoSchwellwertCheckBox.Position = [787 510 118 22];
+
+            % Create PaddingOptionenButtonGroup
+            app.PaddingOptionenButtonGroup = uibuttongroup(app.UIFigure);
+            app.PaddingOptionenButtonGroup.Title = 'Padding Optionen';
+            app.PaddingOptionenButtonGroup.Position = [424 532 164 77];
+
+            % Create PaddingButton
+            app.PaddingButton = uiradiobutton(app.PaddingOptionenButtonGroup);
+            app.PaddingButton.Text = '0-Padding';
+            app.PaddingButton.Position = [11 31 77 22];
+            app.PaddingButton.Value = true;
+
+            % Create PeriodischeFortsetzungButton
+            app.PeriodischeFortsetzungButton = uiradiobutton(app.PaddingOptionenButtonGroup);
+            app.PeriodischeFortsetzungButton.Text = 'Periodische Fortsetzung';
+            app.PeriodischeFortsetzungButton.Position = [11 9 151 22];
 
             % Show the figure after all components are created
             app.UIFigure.Visible = 'on';
