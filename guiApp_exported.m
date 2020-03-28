@@ -91,7 +91,7 @@ classdef guiApp_exported < matlab.apps.AppBase
 
             % Create InputBildDropDown
             app.InputBildDropDown = uidropdown(app.UIFigure);
-            app.InputBildDropDown.Items = {'6EckPic.png', 'Gimp2.png', 'GimpPicture.png', 'Kreis20px.png', 'KreisFarbverlauf2_800px.png', 'KreisFarbverlauf800px.png', 'Kreis_NoSmooth20px.png', 'ManyForms200px.png', 'ManyForms600px.png', 'PicTest600px.png', 'SelbstmalKreis800px.png', 'SPicture_Saved.png', 'SternPic.png', 'Testbild_9x9.png', 'Testbild_Fuchs.png', 'Testbild_Kreis_100x100.png', 'testbild_saved.png', 'Xpic600px.png', 'TestSimple7x7.png', 'ZugPic.png', 'TestSimple8x8.png', 'Kreis2pxKante80px.png', 'TestSimple9x9.png'};
+            app.InputBildDropDown.Items = {'6EckPic.png', 'Gimp2.png', 'ManyForms200px.png', 'ManyForms600px.png', 'SternPic.png', 'TestSimple8x8.png', 'Kreis2pxKante80px.png', 'TestSimple9x9.png', 'SteilkurveGRAY.jpg', 'DBV_Robert_Bosch_1938.jpg', 'Zecke_B_VerdunkelterHintergrund_Beleuchtet_GRAY.png', 'DBV__Pferde_GRAY.png'};
             app.InputBildDropDown.ValueChangedFcn = createCallbackFcn(app, @InputBildDropDownValueChanged, true);
             app.InputBildDropDown.Position = [247 587 138 22];
             app.InputBildDropDown.Value = '6EckPic.png';
