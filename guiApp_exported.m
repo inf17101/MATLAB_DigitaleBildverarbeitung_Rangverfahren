@@ -91,10 +91,10 @@ classdef guiApp_exported < matlab.apps.AppBase
 
             % Create InputBildDropDown
             app.InputBildDropDown = uidropdown(app.UIFigure);
-            app.InputBildDropDown.Items = {'Bild auswählen', '6EckPic.png', 'Gimp2.png', 'GimpPicture.png', 'Kreis20px.png', 'KreisFarbverlauf2_800px.png', 'KreisFarbverlauf800px.png', 'Kreis_NoSmooth20px.png', 'ManyForms200px.png', 'ManyForms600px.png', 'PicTest600px.png', 'SelbstmalKreis800px.png', 'SPicture_Saved.png', 'SternPic.png', 'Testbild_9x9.png', 'Testbild_Fuchs.png', 'Testbild_Kreis_100x100.png', 'testbild_saved.png', 'Xpic600px.png', 'TestSimple7x7.png', 'ZugPic.png'};
+            app.InputBildDropDown.Items = {'6EckPic.png', 'Gimp2.png', 'GimpPicture.png', 'Kreis20px.png', 'KreisFarbverlauf2_800px.png', 'KreisFarbverlauf800px.png', 'Kreis_NoSmooth20px.png', 'ManyForms200px.png', 'ManyForms600px.png', 'PicTest600px.png', 'SelbstmalKreis800px.png', 'SPicture_Saved.png', 'SternPic.png', 'Testbild_9x9.png', 'Testbild_Fuchs.png', 'Testbild_Kreis_100x100.png', 'testbild_saved.png', 'Xpic600px.png', 'TestSimple7x7.png', 'ZugPic.png', 'TestSimple8x8.png', 'Kreis2pxKante80px.png', 'TestSimple9x9.png'};
             app.InputBildDropDown.ValueChangedFcn = createCallbackFcn(app, @InputBildDropDownValueChanged, true);
             app.InputBildDropDown.Position = [247 587 138 22];
-            app.InputBildDropDown.Value = 'Bild auswählen';
+            app.InputBildDropDown.Value = '6EckPic.png';
 
             % Create PixelumgebungDropDownLabel
             app.PixelumgebungDropDownLabel = uilabel(app.UIFigure);
