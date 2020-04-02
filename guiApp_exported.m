@@ -17,8 +17,8 @@ classdef guiApp_exported < matlab.apps.AppBase
         OrginalbildLabel                matlab.ui.control.Label
         ErgebnisnachGradientenbetragsbildmitSchwellwertLabel  matlab.ui.control.Label
         ErgebnisnachRangverfahrenLabel  matlab.ui.control.Label
-        SchwellwertSobelEditFieldLabel  matlab.ui.control.Label
-        SchwellwertSobelEditField       matlab.ui.control.NumericEditField
+        SchwellwertGradientEditFieldLabel  matlab.ui.control.Label
+        SchwellwertGradientEditField    matlab.ui.control.NumericEditField
         AutoSchwellwertCheckBox         matlab.ui.control.CheckBox
         PaddingOptionenButtonGroup      matlab.ui.container.ButtonGroup
         PaddingButton                   matlab.ui.control.RadioButton
@@ -40,7 +40,7 @@ classdef guiApp_exported < matlab.apps.AppBase
             input_file = strcat('images/', app.InputBildDropDown.Value);
             index = app.PixelumgebungDropDown.Value;
             threshold_rang = app.SchwellenwertRangverfahrenEditField.Value;
-            threshold_sobel = app.SchwellwertSobelEditField.Value;
+            threshold_sobel = app.SchwellwertGradientEditField.Value;
             auto_threshold_activated = app.AutoSchwellwertCheckBox.Value;
             zero_padding_selection = app.PaddingButton.Value;
             if zero_padding_selection == 1
@@ -91,7 +91,7 @@ classdef guiApp_exported < matlab.apps.AppBase
 
             % Create InputBildDropDown
             app.InputBildDropDown = uidropdown(app.UIFigure);
-            app.InputBildDropDown.Items = {'6EckPic.png', 'Gimp2.png', 'ManyForms200px.png', 'ManyForms600px.png', 'SternPic.png', 'TestSimple8x8.png', 'Kreis2pxKante80px.png', 'TestSimple9x9.png', 'SteilkurveGRAY.jpg', 'DBV_Robert_Bosch_1938.jpg', 'Zecke_B_VerdunkelterHintergrund_Beleuchtet_GRAY.png', 'DBV__Pferde_GRAY.png'};
+            app.InputBildDropDown.Items = {'6EckPic.png', 'KreisMitVerlauf.png', 'ManyForms200px.png', 'ManyForms600px.png', 'SternPic.png', 'TestSimple8x8.png', 'Kreis2pxKante80px.png', 'TestSimple9x9.png', 'SteilkurveGRAY.jpg', 'DBV_Robert_Bosch_1938.jpg', 'Zecke_B_VerdunkelterHintergrund_Beleuchtet_GRAY.png', 'DBV__Pferde_GRAY.png'};
             app.InputBildDropDown.ValueChangedFcn = createCallbackFcn(app, @InputBildDropDownValueChanged, true);
             app.InputBildDropDown.Position = [247 587 138 22];
             app.InputBildDropDown.Value = '6EckPic.png';
@@ -161,15 +161,15 @@ classdef guiApp_exported < matlab.apps.AppBase
             app.ErgebnisnachRangverfahrenLabel.Position = [889 466 165 22];
             app.ErgebnisnachRangverfahrenLabel.Text = 'Ergebnis nach Rangverfahren';
 
-            % Create SchwellwertSobelEditFieldLabel
-            app.SchwellwertSobelEditFieldLabel = uilabel(app.UIFigure);
-            app.SchwellwertSobelEditFieldLabel.HorizontalAlignment = 'right';
-            app.SchwellwertSobelEditFieldLabel.Position = [937 587 103 22];
-            app.SchwellwertSobelEditFieldLabel.Text = 'Schwellwert Sobel';
+            % Create SchwellwertGradientEditFieldLabel
+            app.SchwellwertGradientEditFieldLabel = uilabel(app.UIFigure);
+            app.SchwellwertGradientEditFieldLabel.HorizontalAlignment = 'right';
+            app.SchwellwertGradientEditFieldLabel.Position = [921 587 119 22];
+            app.SchwellwertGradientEditFieldLabel.Text = 'Schwellwert Gradient';
 
-            % Create SchwellwertSobelEditField
-            app.SchwellwertSobelEditField = uieditfield(app.UIFigure, 'numeric');
-            app.SchwellwertSobelEditField.Position = [1055 587 100 22];
+            % Create SchwellwertGradientEditField
+            app.SchwellwertGradientEditField = uieditfield(app.UIFigure, 'numeric');
+            app.SchwellwertGradientEditField.Position = [1055 587 100 22];
 
             % Create AutoSchwellwertCheckBox
             app.AutoSchwellwertCheckBox = uicheckbox(app.UIFigure);
